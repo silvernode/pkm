@@ -208,8 +208,10 @@ elif [ "$PKMGR" = "yaourt" ]; then
 	pkm-remove-nodepends() { yaourt -Rdd "$@" ;}
 	pkm-remove-orphans() { yaourt -Rs $(pacman -Qqtd) ;}
 	pkm-search() { yaourt --noconfirm "$@" ;}
-	pkm-upgrade() { yaourt --noconfirm -Syu ;}	# upgrade everything except aur package
-	pkm-upgrade-aur() { yaourt --noconfirm -Sbua ;} # only upgrade aur package
+	pkm-upgrade() { yaourt -Syu ;}	# upgrade everything except aur package
+	pkm-upgrade-aur() { yaourt -Sbua ;} # only upgrade aur package
+  pkm-upgrade-auto() { yaourt --noconfirm -Syu ;}
+  pkm-upgrade-auto-aur() { yaourt --noconfirm -Sbua ;}
 # }}}
 # {{{ yum
 elif [ "$PKMGR" = "yum" ]; then
