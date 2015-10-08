@@ -10,7 +10,7 @@
 find_alt() { for i;do which "$i" >/dev/null && { echo "$i"; return 0;};done;return 1; }
 
 # Use the first program that it detects in the array as the default app
-export PKMGR=$(find_alt yaourt pacman aptitude apt-get yum zypper emerge xbps-install)
+export PKMGR=$(find_alt xbps-install yaourt pacman aptitude apt-get yum zypper emerge)
 
 #-------- Gotbletu Universal Package Manager {{{
 #------------------------------------------------------
