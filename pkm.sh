@@ -223,7 +223,7 @@ elif [ "$PKMGR" = "yum" ]; then
 elif [ "$PKMGR" = "xbps-install" ];then
   pkm-install() { sudo xbps-install "$@" ;}
   pkm-search() { xbps-query -Rs "$@" ;}
-  pkm-remove() { xbps-remove "$@" ;}
+  pkm-remove() { sudo xbps-remove "$@" ;}
   pkm-refresh() { xbps-install -S ;}
   pkm-upgrade() { sudo xbps-install -Su ;}
   pkm-upgrade-auto() { sudo xbps-install -Syu ;}
