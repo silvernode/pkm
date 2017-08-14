@@ -3,7 +3,7 @@ A shell script wrapper for package managers originally by gotbletu
 
 ## Introduction  
 
-Pkm is a set of bash functions which are meant to be included in your shell's rc file. It has basic support for package manager detection via the 'which' command and is designed to be run on different Linux distributions. Pkm was originally written by youtube user [gotbletu](https://www.youtube.com/channel/UCkf4VIqu3Acnfzuk3kRIFwA) who demonstrates it's functionallity in the video titled: [Universal Package Manager - Linux BASH ZSH CLI](video:  http://www.youtube.com/watch?v=N8CZhlIssdk). This repository was created to continue expanding functionality and support for other package managers.  
+Pkm is a set of bash functions which are meant to be included in your shell's rc file. It has basic support for package manager detection via the 'which' command and is designed to be run on different Linux distributions. Pkm was originally written by youtube user [gotbletu](https://www.youtube.com/channel/UCkf4VIqu3Acnfzuk3kRIFwA) who demonstrates it's functionallity in the video titled: [Universal Package Manager - Linux BASH ZSH CLI](video:  http://www.youtube.com/watch?v=N8CZhlIssdk). This repository was created to continue expanding functionality and support for other package managers. However if you find development too slow, feel free to contribute.  
 
 ## Installation  
 
