@@ -86,8 +86,9 @@ if [ "$PKMGR" = "apt-get" ]; then
 		# keys.nayr.net
 		# keys.gnupg.net
 		# wwwkeys.en.pgp.net #(replace with your country code fr, en, de,etc)
-	# }}}
-# {{{ aptitude
+		# }}}
+		# {{{ aptitude
+
 elif [ "$PKMGR" = "aptitude" ]; then
         pkm-cleanallall() { sudo aptitude clean ;}
         pkm-cleanallold() { sudo aptitude autoclean ;}
@@ -125,6 +126,7 @@ elif [ "$PKMGR" = "aptitude" ]; then
 		for key in $(grep "NO_PUBKEY" /tmp/keymissing |sed "s/.*NO_PUBKEY //"); \
 		do echo -e "\nProcessing key: $key"; gpg --keyserver pool.sks-keyservers.net \
 		--recv $key && gpg --export --armor $key | sudo apt-key add -; done ;}
+
 # }}}
 # {{{ emerge
 elif [ "$PKMGR" = "emerge" ]; then
@@ -136,6 +138,7 @@ elif [ "$PKMGR" = "emerge" ]; then
         pkm-remove() { sudo emerge -C "$@" ;}
         pkm-search() { emerge -S "$@" ;}
         pkm-upgrade() { sudo emerge -u world ;}
+
 # }}}
 # {{{ pacman
 elif [ "$PKMGR" = "pacman" ]; then
@@ -168,6 +171,7 @@ elif [ "$PKMGR" = "pacman" ]; then
 	pkm-remove-orphans() { sudo pacman -Rs $(pacman -Qqtd) ;}
 	pkm-search() { pacman -Ss "$@" ;}
         pkm-upgrade() { sudo pacman -Syu ;}
+
 # }}}
 # {{{ rug
 elif [ "$PKMGR" = "rug" ]; then
@@ -176,6 +180,7 @@ elif [ "$PKMGR" = "rug" ]; then
         pkm-remove() { sudo rug remove "$@" ;}
 	pkm-search() { rug search "$@" ;}
 	pkm-upgrade() { sudo rug update ;}
+
 # }}}
 # {{{ yaourt
 elif [ "$PKMGR" = "yaourt" ]; then
@@ -210,23 +215,31 @@ elif [ "$PKMGR" = "yaourt" ]; then
 	pkm-search() { yaourt --noconfirm "$@" ;}
 	pkm-upgrade() { yaourt -Syu ;}	# upgrade everything except aur package
 	pkm-upgrade-aur() { yaourt -Sbua ;} # only upgrade aur package
-  pkm-upgrade-auto() { yaourt --noconfirm -Syu ;}
-  pkm-upgrade-auto-aur() { yaourt --noconfirm -Sbua ;}
+	pkm-upgrade-auto() { yaourt --noconfirm -Syu ;}
+	pkm-upgrade-auto-aur() { yaourt --noconfirm -Sbua ;}
+
 # }}}
 # {{{ yum
 elif [ "$PKMGR" = "yum" ]; then
 	pkm-cleanall() { sudo yum clean ;}
 	pkm-depends() { sudo yum deplist "$@" ;}
 	pkm-dependsreverse() { sudo yum resolvedep "$@" ;}
-	pkm-info() { for arg in "$@"; do
-		rpm -qi $arg 2> /dev/null || yum info $arg; done ;}
+	pkm-info() { for arg in "$@"; do rpm -qi $arg 2> /dev/null || yum info $arg; done ;}
+
 
 # XBPS
 elif [ "$PKMGR" = "xbps-install" ];then
-  pkm-install() { sudo xbps-install "$@" ;}
-  pkm-search() { xbps-query -Rs "$@" ;}
-  pkm-remove() { sudo xbps-remove "$@" ;}
-  pkm-refresh() { xbps-install -S ;}
-  pkm-upgrade() { sudo xbps-install -Su ;}
-  pkm-upgrade-auto() { sudo xbps-install -Syu ;}
+	pkm-install() { sudo xbps-install "$@" ;}
+	pkm-search() { xbps-query -Rs "$@" ;}
+	pkm-remove() { sudo xbps-remove "$@" ;}
+	pkm-refresh() { xbps-install -S ;}
+	pkm-upgrade() { sudo xbps-install -Su ;}
+	pkm-upgrade-auto() { sudo xbps-install -Syu ;}
+
+
+elif [ "$PKMGR" = "nix-env" ];then
+	pkm-install() { sudo nix-env -i "${@}" ;}
+	pkm-search() { nix-env -qa "${@}" ;}
+	pkm-remove() { nix-env --uninstall "${@}" ;}
+	pkm-refresh() { nix-env -u "${@}" ;}
 fi
